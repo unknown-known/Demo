@@ -14,14 +14,12 @@ class Tab {
     }
     // 初始化样式
     init() {
-        this.li = this.ul.querySelectorAll(".tab-nav-li");
-        this.section = this.sections.querySelectorAll(".tab-section-item");
-        this.remove = this.ul.querySelectorAll(".remove");
         // console.log(this.remove);
+        this.getNode();
 
         for (let i = 0; i < this.li.length; i++) {
             // if (i == 0) {
-            //     this.li[i].classList.add("activte");
+            //     this.li[i].classList.add("activate");
             //     this.section[i].style.display = "block";
             // }
             this.li[i].setAttribute("data-index", i);
@@ -31,10 +29,16 @@ class Tab {
         that.li[0].click();
         this.removeTab();
     }
+    // 重新获取样式
+    getNode() {
+        this.li = this.ul.querySelectorAll(".tab-nav-li");
+        this.section = this.sections.querySelectorAll(".tab-section-item");
+        this.remove = this.ul.querySelectorAll(".remove");
+    }
     // 清除样式
     clearClass() {
         for (let i = 0; i < this.li.length; i++) {
-            this.li[i].classList.remove("activte");
+            this.li[i].classList.remove("activate");
             // console.log(this.section[i]);
             this.section[i].style.display = "none";
             // console.log(i);
@@ -45,7 +49,7 @@ class Tab {
         for (let i = 0; i < this.li.length; i++) {
             this.li[i].addEventListener("click", function () {
                 that.clearClass();
-                this.classList.add("activte");
+                this.classList.add("activate");
                 that.section[i].style.display = "block";
                 // console.log(this.hasAttribute("data-index"));
                 // console.log(this.getAttribute("data-index"));
@@ -73,10 +77,21 @@ class Tab {
     // 移除标签
     removeTab() {
         // TODO
+        let index = 0;
         for (let i = 0; i < that.li.length; i++) {
-            let index = that.li[i].getAttrbute("data-index");
-            console.log(this.index);
+            this.remove[i].addEventListener("click", function () {
+                index = this.parentNode.getAttribute("data-index");
+                console.log(this.parentNode.previousSibling);
+
+                this.parentNode.remove();
+                that.section[index].remove();
+
+                that.li[index - 1].click();
+            });
+
+            // console.log(index);
         }
+        // console.log(that.li[i].getAttribute("data-index"));
     }
     // 编辑标签
     editTab() {}

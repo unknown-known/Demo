@@ -63,3 +63,8 @@ li {
     background-color: yellowgreen;
     color: #ffffff;
 }
+.editInput {
+    width: 100%;
+    height: 60%;
+    outline: none;
+}
